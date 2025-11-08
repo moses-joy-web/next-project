@@ -23,8 +23,19 @@ const handler = startServerAndCreateNextHandler<NextRequest, GraphQLContext>(ser
 	},
 });
 
-export const GET = handler;
-export const POST = handler;
+// The handler returned by @as-integrations/next has multiple overloads (NextApiRequest and NextRequest)
+// which causes a TypeScript incompatibility with Next 13 app route types when exported directly.
+// Wrap the handler in functions that match the app-route signature: (request: NextRequest) => Response | Promise<Response>
+export async function GET(request: NextRequest) {
+	// delegate to integration handler; cast to any to avoid overload conflicts
+	const res = await (handler as unknown as (req: NextRequest) => Promise<Response>)(request as any);
+	return res;
+}
+
+export async function POST(request: NextRequest) {
+	const res = await (handler as unknown as (req: NextRequest) => Promise<Response>)(request as any);
+	return res;
+}
 
 
 
