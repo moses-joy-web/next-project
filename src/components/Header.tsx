@@ -44,7 +44,7 @@ export default function Header() {
                 <button onClick={onLogout} className="px-3 py-1 bg-red-500 text-white rounded text-sm">Logout</button>
               ) : (
                 <div className="flex gap-2">
-                  <Link href="/login" className="px-3 py-1 border rounded text-sm">Login</Link>
+                  <Link href="/login" className="px-3 py-1 border rounded text-sm text-[#fff]">Login</Link>
                   <Link href="/signup" className="px-3 py-1 bg-sky-600 text-white rounded text-sm">Sign up</Link>
                 </div>
               )}
